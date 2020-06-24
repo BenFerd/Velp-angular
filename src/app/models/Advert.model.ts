@@ -1,8 +1,9 @@
 export interface Advert {
+    id: number;
     title: string;
     description: string;
     image: string;
     pubDate: Date;
-    user: string;
-    category: string;
+    user?: any;
+    category?: any;
 }

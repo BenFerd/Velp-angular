@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as JwtDecode from 'jwt-decode';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { ProfilComponent } from './components/profil/profil.component';
+import { AdvertComponent } from './components/advert/advert.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: "adverts",
     component: AdvertsComponent,
+  },
+  {
+    path: "adverts/:advertId",
+    component: AdvertComponent,
   },
   {
     path: "profil",

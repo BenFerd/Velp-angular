@@ -1,13 +1,16 @@
-<!-- <h3>Listes des annonces</h3>
+<h3>Listes des annonces</h3>
 
 <div class="container">
     <div *ngFor="let advert of adverts | async">
         <div class="card bg-light mb-3" style="max-width: 20rem;">
-            <div class="card-header">{{advert.title}}</div>
+            <div class="card-header">{{advert.title}} {{advert.pubDate}}</div>
             <div class="card-body">
-              <h4 class="card-title">{{advert.category}}</h4>
+              <h4 class="card-title">{{advert.category.name}}</h4>
               <p class="card-text">{{advert.description}}</p>
+            <div>
+              <button class="btn btn-outline-secondary" [routerLink]="[advert.id]">Détails</button>
+            </div>
             </div>
           </div>
     </div>
-</div> -->
+</div>

@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8000',
   authApi: 'http://localhost:8000/api/login_check',
-  userApi: 'http://localhost:8000/api/users'
+  userApi: 'http://localhost:8000/api/users',
+  advertApi: 'http://localhost:8000/api/adverts',
 };
 
 /*
