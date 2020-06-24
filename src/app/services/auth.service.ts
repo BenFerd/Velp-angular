@@ -3,8 +3,10 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 
+
 import { environment } from "src/environments/environment";
 import { Credentials } from "../models/credentials.model";
+import * as JwtDecode from 'jwt-decode';
 
 // Modèle de la réponse de l'API jwt
 interface AuthResponse {
@@ -60,12 +62,18 @@ export class AuthService {
     return this.getToken() !== null;
   }
 
+  getUserData() {
+    if (!this.getToken()) return null;
+
+    return JwtDecode(this.getToken());
+  }
+
+  
   // getUserData() {
   //   if (!this.getToken()) return null;
+  //   return this.helper.decodeToken(this.getToken());
 
-  //   return jwtDecode(this.getToken());
   // }
-
 
 
 

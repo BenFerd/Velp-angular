@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -9,9 +10,30 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  isAuthenticated = false;
+  userData: any;
+
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.isAuthenticated = this.auth.isAuthenticated();
+    if (this.isAuthenticated) {
+      this.userData = this.auth.getUserData();
+    }
+
+    this.auth.authState.subscribe(state => {
+      this.isAuthenticated = state;
+
+      if (this.isAuthenticated) {
+        this.userData = this.auth.getUserData();
+      }
+    });
+  }
+
+  handleLogout() {
+    this.auth.logout();
+    this.isAuthenticated = false;
+    this.router.navigateByUrl("login");
   }
 
   

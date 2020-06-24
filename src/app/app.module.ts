@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./components/home/home.component";
@@ -11,6 +11,9 @@ import { Routes, RouterModule } from "@angular/router";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import * as JwtDecode from 'jwt-decode';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { ProfilComponent } from './components/profil/profil.component';
 
 const routes: Routes = [
   {
@@ -33,6 +36,10 @@ const routes: Routes = [
     path: "adverts",
     component: AdvertsComponent,
   },
+  {
+    path: "profil",
+    component: ProfilComponent,
+  },
 ];
 
 @NgModule({
@@ -42,7 +49,8 @@ const routes: Routes = [
     AdvertsComponent,
     LoginComponent,
     RegisterComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +59,17 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
+  {
+    provide: Storage,
+    useValue: window.localStorage
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
