@@ -10,15 +10,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdvertsComponent implements OnInit {
 
-  adverts: Observable<any>;
-  environement: any = environment;
+  
 
-  private advertListUrl = `${environment.apiUrl}/api/adverts`;
-
-  constructor(private httpClient: HttpClient) { }
+  constructor( ){ }
 
   ngOnInit(): void {
-    this.adverts = this.httpClient.get(this.advertListUrl)
+    
   }
 
 }

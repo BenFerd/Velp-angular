@@ -6,7 +6,6 @@ import {
   Validators,
 } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
-import { SessionService } from "src/app/services/session.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -15,31 +14,33 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  errorMessage: string;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private session: SessionService,
-    private router: Router
-  ) {}
+  form = new FormGroup({
+    username: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [Validators.required]),
+  });
 
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      username: new FormControl("", [Validators.required]),
-      password: new FormControl("", [Validators.required]),
-    });
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 
-  submit() {
-    if (this.loginForm.invalid) return;
-    this.authService.login(this.loginForm.value).subscribe(
-      (data) => {
-        this.session.storeToken(data);
-        this.router.navigateByUrl("/").then(() => alert("Bienvenue"));
+  ngOnInit(): void {}
+
+  handleSubmit() {
+    if (this.form.invalid) return;
+
+    this.auth.authenticate(this.form.value).subscribe(
+      (resultat) => {
+        this.errorMessage = "";
+        this.router.navigateByUrl("/");
       },
       (error) => {
-        console.log(error);
+        if (error.status === 401) {
+          this.errorMessage =
+            "L'email et le mot de passe de l'utilisateur ne correspondent pas!";
+          return;
+        }
+        this.errorMessage =
+          "Un problème est survenu, veuillez réessayer plus tard.";
       }
     );
   }

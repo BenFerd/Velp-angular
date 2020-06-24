@@ -1,1 +1,65 @@
-<p>register works!</p>
+<div class="alert alert-light">
+    <h2>Créer votre compte d'utilisateur</h2>
+
+  </div>
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <div class="form-group">
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Adresse email"
+        />
+        <p *ngIf="email.hasError('violation')">
+          {{ email.getError("violation") }}
+        </p>
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Mot de passe"
+        />
+        <p *ngIf="password.hasError('violation')">
+          {{ password.getError("violation") }}
+        </p>
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="firstName"
+          class="form-control"
+          placeholder="Prénom"
+        />
+        <p *ngIf="firstName.hasError('violation')">
+          {{ firstName.getError("violation") }}
+        </p>
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="lastName"
+          class="form-control"
+          placeholder="Nom"
+        />
+        <p *ngIf="lastName.hasError('violation')">
+          {{ lastName.getError("violation") }}
+        </p>
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="city"
+          class="form-control"
+          placeholder="Ville"
+        />
+        <p *ngIf="city.hasError('violation')">
+          {{ city.getError("violation") }}
+        </p>
+      </div>
+      <div class="alert alert-danger" *ngIf="error">
+        Une erreur inconnue est survenue :'(
+      </div>
+      <button type="submit" class="btn btn-success">Inscription</button>
+    </form>
