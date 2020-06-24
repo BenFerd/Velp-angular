@@ -1,0 +1,41 @@
+#logoBand{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+    padding: 15px;
+    justify-content: center;
+    text-align: center;
+    flex-flow: row wrap;
+}
+#section1
+{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+#logo_bande1
+{
+    color: orangered;
+}
+#logo_bar
+{
+    color: black;
+}
+a
+{
+    text-align: center;
+    color: black;
+}
+#span1
+{
+    color: orangered;
+}
+header
+{
+    text-align: center;
+}
+.row container
+{
+    display: flex;
+    flex-direction: row;
+}
