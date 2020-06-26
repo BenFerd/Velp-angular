@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, FormBuilder } from "@angular/forms";
+import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -18,11 +18,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl(""),
-      password: new FormControl(""),
-      firstName: new FormControl(""),
-      lastName: new FormControl(""),
-      city: new FormControl(""),
+      email: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required]),
+      firstName: new FormControl("", [Validators.required]),
+      lastName: new FormControl("", [Validators.required]),
+      city: new FormControl("", [Validators.required]),
     });
   }
 
@@ -30,16 +30,16 @@ export class RegisterComponent implements OnInit {
     return this.form.get("email");
   }
   get password() {
-    return this.form.get("email");
+    return this.form.get("password");
   }
   get firstName() {
-    return this.form.get("email");
+    return this.form.get("firstName");
   }
   get lastName() {
-    return this.form.get("email");
+    return this.form.get("lastName");
   }
   get city() {
-    return this.form.get("email");
+    return this.form.get("city");
   }
 
   handleSubmit() {

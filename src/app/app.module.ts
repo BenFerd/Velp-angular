@@ -15,6 +15,9 @@ import * as JwtDecode from 'jwt-decode';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { ProfilComponent } from './components/profil/profil.component';
 import { AdvertComponent } from './components/advert/advert.component';
+import { AdvertFormComponent } from './components/advert-form/advert-form.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ForumComponent } from './components/forum/forum.component';
 
 const routes: Routes = [
   {
@@ -36,15 +39,28 @@ const routes: Routes = [
   {
     path: "adverts",
     component: AdvertsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "adverts/:advertId",
     component: AdvertComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "profil",
     component: ProfilComponent,
+    canActivate: [AuthGuard]
   },
+  {
+    path: "advert/new",
+    component: AdvertFormComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "forum",
+    component: ForumComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
@@ -55,7 +71,9 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    ProfilComponent
+    ProfilComponent,
+    AdvertFormComponent,
+    ForumComponent
   ],
   imports: [
     BrowserModule,

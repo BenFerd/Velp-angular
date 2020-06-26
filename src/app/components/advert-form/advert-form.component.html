@@ -1,0 +1,48 @@
+<h4>Nouvelle annonce</h4>
+
+<div>
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+        <div class="form-group">
+            <input
+              type="text"
+              formControlName="title"
+              class="form-control"
+              placeholder="Titre"
+            />
+            <p *ngIf="title.hasError('violation')">
+              {{ title.getError("violation") }}
+            </p>
+          </div>
+          <div class="form-group col-3">
+            <textarea
+              
+              formControlName="description"
+              class="form-control"
+              placeholder="Description"
+            ></textarea>
+            <p *ngIf="description.hasError('violation')">
+              {{ description.getError("violation") }}
+            </p>
+          </div>
+          <div class="form-group">
+            <select formControlName="category" class="custom-select" wtx-context="9DB4B003-2A77-416B-8982-E84267453D5C">
+                <option value="" disabled selected>Choisissez une catégorie</option>
+                <option value="/api/categories/11">Aide ménagère</option>
+                <option value="/api/categories/12">Animaux</option>
+                <option value="/api/categories/13">Babysitting</option>
+                <option value="/api/categories/14">Bricolage</option>
+                <option value="/api/categories/15">Evénement</option>
+                <option value="/api/categories/16">Jardin & potager</option>
+                <option value="/api/categories/17">Informatique</option>
+                <option value="/api/categories/18">Bien-être & soins</option>
+                <option value="/api/categories/19">Assistance scolaire</option>
+                <option value="/api/categories/20">Transport</option>
+            </select>
+            <p *ngIf="category.hasError('violation')">
+              {{ category.getError("violation") }}
+            </p>
+          </div>
+
+          <button type="submit" class="btn btn-success" [disabled]="form.invalid" >Créer</button>
+    </form>
+</div>
