@@ -18,6 +18,7 @@ import { AdvertComponent } from './components/advert/advert.component';
 import { AdvertFormComponent } from './components/advert-form/advert-form.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ForumComponent } from './components/forum/forum.component';
+import { UserAdvertsComponent } from './components/user-adverts/user-adverts.component';
 
 const routes: Routes = [
   {
@@ -73,12 +74,13 @@ const routes: Routes = [
     NavbarComponent,
     ProfilComponent,
     AdvertFormComponent,
-    ForumComponent
+    ForumComponent,
+    UserAdvertsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {anchorScrolling: 'enabled'}),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

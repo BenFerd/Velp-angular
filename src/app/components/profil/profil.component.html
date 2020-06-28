@@ -1,37 +1,186 @@
 <div class="cont">
   <header>
     <h3>Profil</h3>
-    <h6>{{userData.username}}</h6>
+    <h6>{{ user.firstName }} {{ user.lastName }}</h6>
   </header>
 
   <body>
     <div class="container-fluid h-100">
-        <div class="row h-100">
-          <aside class="col-12 col-md-2 p-0 bg-dark">
-            <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
-              <div class="collapse navbar-collapse">
-                <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-                  <li class="nav-item">
-                     <a class="nav-link pl-0" href="#">Modifier mon profil</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link pl-0" href="#">Mes annonces</a>
-                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="#">Mes avis</a>
-                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="#" (onClick)="handleLogout()">Déconnexion</a>
-                 </li>           
-                </ul>
+      <div class="row h-100">
+        <aside class="col-12 col-md-2 p-0 bg-dark">
+          <nav
+            class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start"
+          >
+            <div class="collapse navbar-collapse">
+              <ul
+                class="flex-md-column flex-row navbar-nav w-100 justify-content-between"
+              >
+                <li class="nav-item">
+                  <a class="nav-link pl-0" (click)="onClick('formEdit')"
+                    >Modifier mon profil</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pl-0" (click)="onClick('adverts')"
+                    >Mes annonces</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pl-0" (click)="onClick('review')"
+                    >Ce qu'on dit de moi</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pl-0" (click)="onClick('myReviews')"
+                    >Mes avis</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="handleLogout()"
+                  >
+                    Déconnexion
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </aside>
+        <main class="col">
+          <div id="formEdit" class="b1">
+            <h5>Modifier mon profil</h5>
+            <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+              <div class="form-group">
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="form-control"
+                  placeholder="Adresse email"
+                />
+                <p *ngIf="email.hasError('violation')">
+                  {{ email.getError("violation") }}
+                </p>
               </div>
-            </nav>
-          </aside>
-          <main class="col">
-            <!-- Insérez ici le contenu principal du site ou de l'application -->
-          </main>
-        </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  formControlName="password"
+                  class="form-control"
+                  placeholder="Mot de passe"
+                />
+                <p *ngIf="password.hasError('violation')">
+                  {{ password.getError("violation") }}
+                </p>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="firstName"
+                  class="form-control"
+                  placeholder="Prénom"
+                />
+                <p *ngIf="firstName.hasError('violation')">
+                  {{ firstName.getError("violation") }}
+                </p>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="lastName"
+                  class="form-control"
+                  placeholder="Nom"
+                />
+                <p *ngIf="lastName.hasError('violation')">
+                  {{ lastName.getError("violation") }}
+                </p>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="city"
+                  class="form-control"
+                  placeholder="Ville"
+                />
+                <p *ngIf="city.hasError('violation')">
+                  {{ city.getError("violation") }}
+                </p>
+              </div>
+              <div class="alert alert-danger" *ngIf="error">
+                Une erreur inconnue est survenue :'(
+              </div>
+              <button type="submit" class="btn btn-success">Modifier</button>
+            </form>
+          </div>
+          <div id="adverts" class="b1">
+            <h5>Mes annonces</h5>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Catégorie</th>
+                  <th>Date de publication</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ad of adverts | async">
+                  <td>{{ ad.title }}</td>
+                  <td>{{ ad.category.name }}</td>
+                  <td>{{ ad.pubDate | date: "dd/MM/yyyy" }}</td>
+                  <button class="btn btn-warning" [routerLink]="[ad.id]">
+                    Edit
+                  </button>
+                  <button class="btn btn-success" [routerLink]="[ad.id]">
+                    Détails
+                  </button>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h5 id="review">Ce qu'on dit de moi</h5>
+          <div id="review1" class="b1">
+            <div *ngFor="let cr of concernR | async">
+              <div
+                class="card text-white bg-dark mb-3"
+                style="max-width: 20rem;"
+              >
+                <div class="card-header">
+                  Auteur: {{ cr.author.firstName }} {{ cr.author.lastName }}
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ cr.note }}/10 - {{ cr.title }}</h4>
+                  <p class="card-text">{{ cr.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="myReviews" class="b1">
+            <h5>Mes avis</h5>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Note</th>
+                  <th>Utilisateur</th>
+                  <th>Date de publication</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let review of reviews | async">
+                  <td>{{ review.title }}</td>
+                  <td>{{ review.note }}</td>
+                  <td>
+                    {{ review.concern.firstName }} {{ review.concern.lastName }}
+                  </td>
+                  <td>{{ review.pubDate | date: "dd/MM/yyyy" }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
       </div>
+    </div>
   </body>
   <footer></footer>
 </div>

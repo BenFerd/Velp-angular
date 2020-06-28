@@ -16,6 +16,6 @@ export class AdvertsComponent implements OnInit {
 
   ngOnInit(): void {
     this.adverts = this.service.findAll();
-    
+    console.log(this.adverts);
   }
 }

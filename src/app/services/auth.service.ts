@@ -7,6 +7,7 @@ import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Credentials } from "../models/credentials.model";
 import * as JwtDecode from 'jwt-decode';
+import { User } from '../models/User.model';
 
 // Modèle de la réponse de l'API jwt
 interface AuthResponse {
@@ -67,6 +68,12 @@ export class AuthService {
 
     return JwtDecode(this.getToken());
   }
+
+  getUserById(id: number) {
+    return this.httpClient.get<User>(USERS_API + "/" + id);
+  }
+
+
 
   
   // getUserData() {

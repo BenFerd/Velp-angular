@@ -24,6 +24,7 @@ export class AdvertComponent implements OnInit {
   ngOnInit(): void {
     this.advertId = this.route.snapshot.paramMap.get("advertId");
     this.httpClient.get<Advert>(this.URL + ""+ this.advertId).subscribe(data => this.advert = data);
+    console.log(this.advert);
 
   }
 

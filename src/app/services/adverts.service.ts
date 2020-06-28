@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { Advert } from "../models/Advert.model";
 
 const ADVERTS_API = environment.advertApi;
+const useradvert = environment.userApi;
 
 @Injectable({
   providedIn: "root",
@@ -29,6 +30,16 @@ export class AdvertsService {
   }
 
   /**
+   * Récupère les annonces d'un utilisateur.
+   * @param id id de l'utilisateur.
+   */
+  public findAllOfUser(id: number) {
+    return this.http
+      .get(useradvert + "/" + id + "/adverts")
+      .pipe(map((data) => data["hydra:member"] as Advert[]));
+  }
+
+  /**
    * Récupère une annonce en particulier.
    * @param id l'id de l'annonce qu'on veut.
    */
@@ -46,7 +57,7 @@ export class AdvertsService {
 
   /**
    * Permet de mettre à jour l'annonce.
-   * @param advert 
+   * @param advert
    */
   public update(advert: Advert) {
     // Tri pour ne pouvoir modifier que les infos pertinentes.
