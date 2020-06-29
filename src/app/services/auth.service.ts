@@ -27,8 +27,8 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   //inscription d'un nouvel user.
-  register(account: { email: string; password: string }) {
-    return this.httpClient.post(USERS_API, account);
+  register(user: User) {
+    return this.httpClient.post(USERS_API, user);
   }
 
   //Permet de s'auth à l'API.

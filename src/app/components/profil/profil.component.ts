@@ -41,20 +41,22 @@ export class ProfilComponent implements OnInit {
       this.auth
         .getUserById(this.userData.id)
         .subscribe((data) => (this.user = data));
+      
+      this.auth.authState.subscribe((state) => {
+        this.isAuthenticated = state;
+      });
+      // Récupération des annonces de l'utilisateur.
+      this.adverts = this.ad.findAllOfUser(this.userData.id);
+      // Récupérations des avis écrit par l'utilisateur.
+      this.reviews = this.revService.getReview(this.userData.id);
+      // Récupérations des avis écrit à propos l'utilisateur.
+      this.concernR = this.revService.findAllReviewConcerningUser(
+        this.userData.id
+      );
+      this.initializeForm();
     }
 
-    this.auth.authState.subscribe((state) => {
-      this.isAuthenticated = state;
-    });
-    // Récupération des annonces de l'utilisateur.
-    this.adverts = this.ad.findAllOfUser(this.userData.id);
-    // Récupérations des avis écrit par l'utilisateur.
-    this.reviews = this.revService.getReview(this.userData.id);
-    // Récupérations des avis écrit à propos l'utilisateur.
-    this.concernR = this.revService.findAllReviewConcerningUser(
-      this.userData.id
-    );
-    this.initializeForm();
+    
   }
 
   initializeForm() {
@@ -65,6 +67,7 @@ export class ProfilComponent implements OnInit {
       password: new FormControl(""),
       city: new FormControl(""),
     });
+    if(this.user){
     this.form.setValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -72,6 +75,7 @@ export class ProfilComponent implements OnInit {
       password: this.user.password,
       city: this.user.city
     })
+  }
   }
 
   get email() {
@@ -107,6 +111,12 @@ export class ProfilComponent implements OnInit {
         }
       }
     );
+  }
+
+  handleDelete(id: number){
+    this.ad.delete(id);
+    console.log("delete");
+    this.router.navigateByUrl("profil");
   }
   
 

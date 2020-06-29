@@ -57,7 +57,7 @@
                   type="email"
                   formControlName="email"
                   class="form-control"
-                  placeholder="Adresse email"
+                  placeholder="Email"
                 />
                 <p *ngIf="email.hasError('violation')">
                   {{ email.getError("violation") }}
@@ -128,11 +128,11 @@
                   <td>{{ ad.title }}</td>
                   <td>{{ ad.category.name }}</td>
                   <td>{{ ad.pubDate | date: "dd/MM/yyyy" }}</td>
-                  <button class="btn btn-warning" [routerLink]="[ad.id]">
+                  <button class="btn btn-warning" routerLink="adverts/{{ad.id}}">
                     Edit
                   </button>
-                  <button class="btn btn-success" [routerLink]="[ad.id]">
-                    Détails
+                  <button class="btn btn-danger" (click)="handleDelete(ad.id)">
+                    Supprimer
                   </button>
                 </tr>
               </tbody>

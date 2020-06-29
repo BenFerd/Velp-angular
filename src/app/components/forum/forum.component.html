@@ -1,1 +1,28 @@
-<p>forum works!</p>
+<div class="container">
+  <h5>Forum</h5>
+  <hr />
+  <a routerLink="topic/new" class="btn btn-info">Créer un sujet</a>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Catégorie</th>
+        <th>Auteur</th>
+        <th>Nombre de messages</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let topic of topics | async">
+        <td>{{ topic.title }}</td>
+        <td>{{ topic.description }}</td>
+        <td>
+          {{ topic.category.name }}
+        </td>
+        <td>{{ topic.author.firstName }} {{ topic.author.lastName }}</td>
+        <td>{{ topic.messages.length }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

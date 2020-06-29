@@ -48,8 +48,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "profil/adverts/:advertId",
+    component: AdvertComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: "profil",
     component: ProfilComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "forum",
+    component: ForumComponent,
     canActivate: [AuthGuard]
   },
   {

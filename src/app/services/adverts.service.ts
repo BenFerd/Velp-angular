@@ -69,4 +69,8 @@ export class AdvertsService {
 
     return this.http.put<Advert>(ADVERTS_API + "/" + advert.id, updateAdvert);
   }
+
+  public delete(id: number){
+    return this.http.delete(ADVERTS_API + "/" + id)
+  }
 }
